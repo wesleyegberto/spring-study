@@ -1,4 +1,0 @@
-mongodb:
-  image: library/mongo
-  ports:
-    - "27017:27017"
