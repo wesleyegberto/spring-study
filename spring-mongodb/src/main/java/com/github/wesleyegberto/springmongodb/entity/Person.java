@@ -1,5 +1,6 @@
 package com.github.wesleyegberto.springmongodb.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
@@ -15,12 +16,15 @@ public class Person {
 	@NotBlank
 	private String name;
 	
+	private LocalDateTime birthDate;
+	
 	public Person() {
 	}
 	
 	public Person(String name) {
 		this.id = UUID.randomUUID();
 		this.name = name;
+		this.birthDate = LocalDateTime.now();
 	}
 
 	public UUID getId() {
@@ -33,6 +37,10 @@ public class Person {
 
 	public String getName() {
 		return name;
+	}
+	
+	public LocalDateTime getBirthDate() {
+		return birthDate;
 	}
 
 	@Override

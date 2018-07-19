@@ -34,7 +34,8 @@ public class MongoDbConfigurer extends AbstractMongoConfiguration {
 
 	private CodecRegistry createCodecRegistries() {
 		// save UUID using standard 4 bytes representation
-		return CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)), MongoClient.getDefaultCodecRegistry());
+		return CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
+				MongoClient.getDefaultCodecRegistry());
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public class MongoDbConfigurer extends AbstractMongoConfiguration {
 		// remove _class
 		MappingMongoConverter converter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), new MongoMappingContext());
 		converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+		converter.afterPropertiesSet();
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory, converter);
 		return mongoTemplate;
 	}
