@@ -22,7 +22,7 @@ public class MessageRunnerPublisher implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("Sending message...");
-		IntStream.range(0, 10).forEach(this::publishMessage);
+		IntStream.range(0, 5).forEach(this::publishMessage);
 	}
 
 	private void publishMessage(int i) {
