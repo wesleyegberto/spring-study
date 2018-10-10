@@ -1,5 +1,6 @@
 
 # Created by https://www.gitignore.io/api/java,eclipse,java-web,intellij+all,visualstudiocode
+**/.DS_Store
 
 ### Eclipse ###
 
