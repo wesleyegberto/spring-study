@@ -1,7 +1,11 @@
 
 # Created by https://www.gitignore.io/api/java,eclipse,java-web,intellij+all,visualstudiocode
 **/.DS_Store
-
+mvnw
+mvnw.cmd
+.vscode/
+.mvn/
+target/
 ### Eclipse ###
 
 .metadata
