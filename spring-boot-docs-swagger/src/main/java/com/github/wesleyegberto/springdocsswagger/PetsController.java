@@ -84,6 +84,7 @@ class Pet {
 
 	void setId(int id) {
 		this.id = id;
+		this.createDate = LocalDateTime.now();
 	}
 
 	public LocalDateTime getCreateDate() {
