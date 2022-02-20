@@ -252,3 +252,4 @@ The plugin will generate the docs in HTML and PDF at `target/generated-docs/` fo
 ## Links
 
 * [Springfox Docs](https://springfox.github.io/springfox/docs/current/)
+* [Asciidoc](https://www.baeldung.com/spring-rest-docs)
