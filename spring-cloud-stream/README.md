@@ -16,7 +16,11 @@ docker run --rm -it --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:managem
 - rabbitmq-events-consumer: show how to build a simple consumer
 - rabbitmq-events-consumer-routing: show how to use routing expression with differents consumers
 - rabbitmq-events-partitioning: show how to use partitioned consumers
-- rabbitmq-events-consumer-testing: show hot to test a consumer
+- rabbitmq-events-consumer-testing: show how to test a consumer
+
+Bellow is the complete diagram:
+
+![](images/spring-cloud-stream-rabbitmq.jpg)
 
 ### Producer
 
@@ -50,3 +54,7 @@ To run the partitioned consumer we can set the `INSTANCE_INDEX` with the consume
 export INSTANCE_INDEX=0
 mvn spring-boot:run
 ```
+
+Bellow is the bindings running two instances:
+
+![](images/partitioned-consumers-bindings.png)
