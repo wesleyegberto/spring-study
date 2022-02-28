@@ -1,9 +1,9 @@
 package com.github.wesleyegberto.consumer;
 
-import java.util.function.Consumer;
-
 import com.github.wesleyegberto.consumer.model.Order;
 import com.github.wesleyegberto.consumer.service.EventConsumer;
+
+import java.util.function.Consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

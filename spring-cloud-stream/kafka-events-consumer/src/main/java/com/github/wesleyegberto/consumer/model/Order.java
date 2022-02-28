@@ -1,30 +1,19 @@
 package com.github.wesleyegberto.consumer.model;
 
-import java.util.UUID;
-
 public class Order {
-	private UUID id;
+	private long id;
 	private String type;
+	private String product;
 	private int amount;
 
 	public Order() {}
 
-	public Order(String type, int amount) {
-		this.id = UUID.randomUUID();
-		this.type = type;
-		this.amount = amount;
-	}
-
-	public static Order ofBuy(int amount) {
-		return new Order("BUY", amount);
-	}
-
-	public static Order ofSell(int amount) {
-		return new Order("SELL", amount);
-	}
-
-	public UUID getId() {
+	public long getId() {
 		return id;
+	}
+
+	public String getProduct() {
+		return product;
 	}
 
 	public String getType() {

@@ -1,34 +1,42 @@
 package com.github.wesleyegberto.producer.model;
 
-import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Order {
-	private UUID id;
+	private static final AtomicLong ID = new AtomicLong();
+
+	private long id;
 	private String type;
+	private String product;
 	private int amount;
 
 	public Order() {}
 
-	public Order(String type, int amount) {
-		this.id = UUID.randomUUID();
+	public Order(String type, String product, int amount) {
+		this.id = ID.incrementAndGet();
 		this.type = type;
+		this.product = product;
 		this.amount = amount;
 	}
 
-	public static Order ofBuy(int amount) {
-		return new Order("BUY", amount);
+	public static Order ofBuy(String product, int amount) {
+		return new Order("BUY", product, amount);
 	}
 
-	public static Order ofSell(int amount) {
-		return new Order("SELL", amount);
+	public static Order ofSell(String product, int amount) {
+		return new Order("SELL", product, amount);
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
 	public String getType() {
 		return type;
+	}
+
+	public String getProduct() {
+		return product;
 	}
 
 	public int getAmount() {
@@ -37,7 +45,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return String.format("Order[id=%s, type=%s, amount=%d]", id, type, amount);
+		return String.format("Order[id=%s, type=%s, product=%s, amount=%d]", id, type, product, amount);
 	}
 }
 

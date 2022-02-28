@@ -11,10 +11,10 @@ public class EventConsumer {
 	private static final Logger LOG = LoggerFactory.getLogger(EventConsumer.class);
 
 	public void logBuyOrder(Order order) {
-		LOG.info("Received buy order: {}", order);
+		LOG.info("Received BUY order: {}", order);
 	}
 
 	public void logSellOrder(Order order) {
-		LOG.info("Received sell order: {}", order);
+		LOG.info("Received SELL order: {}", order);
 	}
 }
