@@ -58,3 +58,8 @@ mvn spring-boot:run
 Bellow is the bindings running two instances:
 
 ![](images/partitioned-consumers-bindings.png)
+
+## References
+
+- [Spring Cloud Stream - RabbitMQ](https://github.com/spring-cloud/spring-cloud-stream-binder-rabbit)
+
