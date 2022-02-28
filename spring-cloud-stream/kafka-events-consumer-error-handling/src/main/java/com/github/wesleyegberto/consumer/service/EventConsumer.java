@@ -16,6 +16,10 @@ public class EventConsumer {
 		throw new RuntimeException("Error during buy - no money");
 	}
 
+	public void handleError(BuyOrder order) {
+		LOG.error("Handling BUY error: {}", order);
+	}
+
 	public void processSell(SellOrder order) {
 		LOG.info("Received SELL order: {}", order);
 	}

@@ -1,11 +1,12 @@
 package com.github.wesleyegberto.consumer;
 
+import java.util.function.Consumer;
+
 import com.github.wesleyegberto.consumer.model.BuyOrder;
 import com.github.wesleyegberto.consumer.model.SellOrder;
 import com.github.wesleyegberto.consumer.service.EventConsumer;
 
-import java.util.function.Consumer;
-
+import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +23,15 @@ public class KakfaConsumerApplication {
 	}
 
 	@Bean
-	public Consumer<SellOrder> sellOrderErrorThrower(EventConsumer eventConsumer) {
-		return eventConsumer::processSell;
+	public Consumer<KStream<Long, SellOrder>> sellOrderErrorThrower(EventConsumer eventConsumer) {
+		return sellOrders -> {
+			sellOrders.foreach((k, v) -> eventConsumer.processSell(v));
+		};
+	}
+
+	@Bean
+	public Consumer<BuyOrder> buyOrderDlqHandler(EventConsumer eventConsumer) {
+		return eventConsumer::handleError;
 	}
 }
 
