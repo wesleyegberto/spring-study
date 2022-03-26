@@ -8,7 +8,7 @@ Run broker:
 docker run --rm -it --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
 ```
 
-## Projects
+### Projects
 
 - rabbitmq-events-producer:
   - produces the messages and expose a REST API to publish a message
@@ -22,7 +22,7 @@ Bellow is the complete diagram:
 
 ![](images/spring-cloud-stream-rabbitmq.jpg)
 
-### Producer
+#### Producer
 
 The producer has two supplier that can be defined using the property `spring.cloud.function.name`.
 
@@ -38,7 +38,7 @@ POST localhost:8080/security/events
 }
 ```
 
-### Consumers
+#### Consumers
 
 There are 3 consumers:
 
@@ -58,6 +58,28 @@ mvn spring-boot:run
 Bellow is the bindings running two instances:
 
 ![](images/partitioned-consumers-bindings.png)
+
+## Kafka
+
+Run broker:
+
+```sh
+docker-compose up
+```
+
+### Projects
+
+- kafka-events-producer: show how to send message
+- kafka-events-consumer: show how to build a simple topic consumer
+- kafka-events-joiner-consumer:
+  - show how to consume from two topics and produce the result to another one
+  - show how to store aggregation result into a persistent store
+- kafka-events-consumer-error-handling: show how to different error handling and how to setup a DLQ
+- kafka-stream-functions-samples: show different cases of streaming
+
+Bellow is the complete diagram:
+
+![](images/spring-cloud-stream-kafka.jpg)
 
 ## References
 
