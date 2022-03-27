@@ -29,7 +29,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Springfox2Configurator {
 	// Disable in these environments
 	@Bean
-	@Profile("production,staging")
+	@Profile({ "production", "staging" })
 	public Docket emptyApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 			.enable(false)
@@ -38,7 +38,7 @@ public class Springfox2Configurator {
 	}
 
 	@Bean
-	@Profile("default,development")
+	@Profile({ "default", "development" })
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 			.groupName("public-api")
