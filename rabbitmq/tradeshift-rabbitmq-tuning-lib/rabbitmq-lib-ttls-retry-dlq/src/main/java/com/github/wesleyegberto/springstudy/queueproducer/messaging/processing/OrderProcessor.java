@@ -23,7 +23,7 @@ public class OrderProcessor implements MessageListener {
 	private String exchange;
 	@Value("${spring.rabbitmq.custom.order-processed.queueRoutingKey}")
 	private String routingKey;
-	
+
 	@Autowired
 	private OrderSerializer orderSerializer;
 	@Autowired
@@ -40,24 +40,24 @@ public class OrderProcessor implements MessageListener {
 	)
 	public void onMessage(Message message) {
 		LOG.info("Received message");
-		
+
 		var order = orderSerializer.deserialize(message);
 		if (order == null) {
 			LOG.info("Order is null");
 			return;
 		}
-		
+
 		process(order);
 		sendProcessedOrder(order);
 	}
 
 	private void process(Order order) {
 		LOG.info("{} - SKU {} - Processing order", order.getOrderNumber(), order.getSku());
-		try {
-			Thread.sleep(250);
-		} catch (InterruptedException e) {
-		}
-		
+		// try {
+		// 	Thread.sleep(250);
+		// } catch (InterruptedException e) {
+		// }
+
 		if (order.getSku().equals("XPTO-0")) {
 			LOG.warn("{} - SKU out of stock", order.getOrderNumber());
 			throw new SkuOutOfStockException("SKU " + order.getSku() + " out of stock");
@@ -66,13 +66,13 @@ public class OrderProcessor implements MessageListener {
 			LOG.warn("{} - Error during stock verification", order.getOrderNumber());
 			throw new RuntimeException("Error during stock verification for SKU " + order.getSku());
 		}
-		
+
 		order.setProcessed();
 	}
 
 	private void sendProcessedOrder(Order order) {
 		var message = orderSerializer.serializeAndCreateMessage(order);
-		
+
 		LOG.info("{} - Sending order to invoicing", order.getOrderNumber());
 		this.rabbitTemplateHandler.getRabbitTemplate(OrderEvents.PROCESSED)
 			.send(exchange, routingKey, message);

@@ -7,10 +7,10 @@ public class Order {
 	private LocalDateTime orderDate;
 	private String sku;
 	private int total;
-	
+
 	private LocalDateTime processingDate;
 	private LocalDateTime invoiceDate;
-	
+
 	Order() {
 	}
 
@@ -19,7 +19,7 @@ public class Order {
 		this.orderDate = LocalDateTime.now();
 		if (orderNumber % 4 == 0) {
 			this.sku = "XPTO-0";
-		} else if (orderNumber % 3 == 0) {
+		} else if (orderNumber % 5 == 0) {
 			this.sku = "XPTO-2";
 		} else {
 			this.sku = "XPTO-13";
@@ -30,11 +30,11 @@ public class Order {
 	public int getOrderNumber() {
 		return orderNumber;
 	}
-	
+
 	public LocalDateTime getOrderDate() {
 		return orderDate;
 	}
-	
+
 	public String getSku() {
 		return sku;
 	}
@@ -42,11 +42,11 @@ public class Order {
 	public long getTotal() {
 		return total;
 	}
-	
+
 	public LocalDateTime getProcessingDate() {
 		return processingDate;
 	}
-	
+
 	public LocalDateTime getInvoiceDate() {
 		return invoiceDate;
 	}
