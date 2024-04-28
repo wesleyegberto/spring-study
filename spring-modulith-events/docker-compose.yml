@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=eventsdb'
+      - 'POSTGRES_USER=root'
+      - 'POSTGRES_PASSWORD=unhackable'
+    ports:
+      - '5432:5432'
+
