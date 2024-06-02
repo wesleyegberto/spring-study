@@ -7,7 +7,9 @@ import com.wesleyegberto.ecommerce.events.UserEventPublisher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,6 +30,25 @@ public class UsersController {
 	public UsersController(UserRepository users, UserEventPublisher eventPublisher) {
 		this.users = users;
 		this.eventPublisher = eventPublisher;
+	}
+
+	@GetMapping("{id}")
+	public ResponseEntity<UserData> findById(@PathVariable("id") long id) {
+		return users.findById(id)
+			.map(UserData::of)
+			.map(ResponseEntity::ok)
+			.orElseGet(() -> ResponseEntity.notFound().build());
+	}
+
+	@GetMapping("search")
+	public ResponseEntity<UserData> findByTaxId(@Param("taxId") String taxId) {
+		if (taxId == null || taxId.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}
+		return users.findByTaxId(taxId)
+			.map(UserData::of)
+			.map(ResponseEntity::ok)
+			.orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@PostMapping
