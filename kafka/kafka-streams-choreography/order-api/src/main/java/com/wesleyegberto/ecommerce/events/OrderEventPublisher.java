@@ -15,29 +15,37 @@ public class OrderEventPublisher {
 	private static final Logger LOG = LoggerFactory.getLogger(OrderEventPublisher.class);
 
 	private final String ordersPlacedTopicName;
+	private final String ordersValidatedTopicName;
 	private final KafkaTemplate<String, String> kafkaTemplate;
 	private final ObjectMapper objectMapper;
 
 	public OrderEventPublisher(@Value("${kafka.orders-placed.topic.name}") String ordersPlacedTopicName,
+			@Value("${kafka.orders-validated.topic.name}") String ordersValidatedTopicName,
 			KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
 		this.ordersPlacedTopicName = ordersPlacedTopicName;
+		this.ordersValidatedTopicName = ordersValidatedTopicName;
 		this.kafkaTemplate = kafkaTemplate;
 		this.objectMapper = objectMapper;
 	}
 
-	public void placeOrder(OrderPlacedEvent event) {
-		var message = createMessage(event);
-		LOG.info("Placing order {} - {}: {}", event.id(), event.orderNumber(), message);
+	public void notifyPlacedOrder(OrderPlacedEvent event) {
+		var message = createMessage(this.ordersPlacedTopicName, event.orderNumber(), event);
+		LOG.info("Notifying placed order {} - {}: {}", event.id(), event.orderNumber(), message);
 		this.kafkaTemplate.send(message);
 	}
 
-	private ProducerRecord<String, String> createMessage(OrderPlacedEvent event) {
-		var messageContent = serialize(event);
-		return new ProducerRecord<>(this.ordersPlacedTopicName,
-				event.orderNumber(), messageContent);
+	public void notifyValidatedOrder(OrderValidatedEvent event) {
+		var message = createMessage(this.ordersValidatedTopicName, event.orderNumber(), event);
+		LOG.info("Notifying validated order {} - {}: {}", event.id(), event.orderNumber(), message);
+		this.kafkaTemplate.send(message);
 	}
 
-	private String serialize(OrderPlacedEvent event) {
+	private <T> ProducerRecord<String, String> createMessage(String topicName, String id, T event) {
+		var messageContent = serialize(event);
+		return new ProducerRecord<>(topicName, id, messageContent);
+	}
+
+	private <T> String serialize(T event) {
 		try {
 			return objectMapper.writeValueAsString(event);
 		} catch (JsonProcessingException ex) {

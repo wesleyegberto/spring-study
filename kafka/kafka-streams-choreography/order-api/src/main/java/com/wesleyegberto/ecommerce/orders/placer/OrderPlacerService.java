@@ -23,11 +23,11 @@ public class OrderPlacerService {
 	}
 
 	public PlacedOrder placeOrder(@Valid OrderPlaceRequest orderRequest) {
-		var client = users.findByTaxId(orderRequest.getClientTaxId());
-		var order = orderRequest.toEntity(client);
+		var customer = users.findByTaxId(orderRequest.getCustomerTaxId());
+		var order = orderRequest.toEntity(customer);
 
 		orders.save(order);
-		eventPublisher.placeOrder(OrderPlacedEvent.of(order));
+		eventPublisher.notifyPlacedOrder(OrderPlacedEvent.of(order));
 
 		return PlacedOrder.of(order);
 	}

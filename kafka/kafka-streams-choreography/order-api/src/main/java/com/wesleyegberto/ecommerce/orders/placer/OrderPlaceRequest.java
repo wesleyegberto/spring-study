@@ -1,7 +1,7 @@
 package com.wesleyegberto.ecommerce.orders.placer;
 
 import com.wesleyegberto.ecommerce.orders.management.Address;
-import com.wesleyegberto.ecommerce.orders.management.Client;
+import com.wesleyegberto.ecommerce.orders.management.Customer;
 import com.wesleyegberto.ecommerce.orders.management.Item;
 import com.wesleyegberto.ecommerce.orders.management.Order;
 
@@ -12,14 +12,14 @@ import jakarta.validation.constraints.NotNull;
 
 public class OrderPlaceRequest {
 	@NotEmpty
-	private String clientTaxId;
+	private String customerTaxId;
 	@NotEmpty
-	private List<com.wesleyegberto.ecommerce.orders.management.Item> items;
+	private List<Item> items;
 	@NotNull
 	private Address shippingAddress;
 
-	public String getClientTaxId() {
-		return clientTaxId;
+	public String getCustomerTaxId() {
+		return customerTaxId;
 	}
 
 	public List<Item> getItems() {
@@ -30,7 +30,7 @@ public class OrderPlaceRequest {
 		return shippingAddress;
 	}
 
-	public Order toEntity(Client client) {
-		return Order.createFrom(items, client, shippingAddress);
+	public Order toEntity(Customer customer) {
+		return Order.createFrom(items, customer, shippingAddress);
 	}
 }

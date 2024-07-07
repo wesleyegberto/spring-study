@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders", indexes = {
 		@Index(columnList = "orderNumber", unique = true),
-		@Index(columnList = "client.id")
+		@Index(columnList = "customer.id")
 })
 public class Order {
 	@Id
@@ -34,7 +34,7 @@ public class Order {
 	private List<Item> items;
 
 	@Embedded
-	private Client client;
+	private Customer customer;
 	@Embedded
 	private Address shippingAddress;
 
@@ -47,20 +47,20 @@ public class Order {
 	Order() {
 	}
 
-	public Order(List<Item> items, Client client, Address shippingAddress) {
+	public Order(List<Item> items, Customer customer, Address shippingAddress) {
 		this.createdAt = LocalDateTime.now();
 		this.orderNumber = OrderNumberGenerator.generateOrderNumber();
 
 		this.items = items;
-		this.client = client;
+		this.customer = customer;
 		this.shippingAddress = shippingAddress;
 		this.total = items.stream().mapToInt(Item::getUnitCost).sum();
 		this.status = OrderStatus.PENDING;
 	}
 
-	public static Order createFrom(List<Item> items, Client client,
+	public static Order createFrom(List<Item> items, Customer customer,
 			Address shippingAddress) {
-		return new Order(items, client, shippingAddress);
+		return new Order(items, customer, shippingAddress);
 	}
 
 	public Long getId() {
@@ -79,8 +79,12 @@ public class Order {
 		return items;
 	}
 
-	public Client getClient() {
-		return client;
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public long getCustomerId() {
+		return customer.getId();
 	}
 
 	public Address getShippingAddress() {
@@ -104,6 +108,10 @@ public class Order {
 		return message;
 	}
 
+	public boolean isProcessed() {
+		return this.status == OrderStatus.PROCESSED;
+	}
+
 	public void setProcessed() {
 		setStatus(OrderStatus.PROCESSED);
 	}
@@ -111,5 +119,9 @@ public class Order {
 	public void reject(String message) {
 		setStatus(OrderStatus.REJECTED);
 		this.message = message;
+	}
+
+	public boolean isShippingToCustomerAddress(Address address) {
+		return this.shippingAddress.equals(address);
 	}
 }

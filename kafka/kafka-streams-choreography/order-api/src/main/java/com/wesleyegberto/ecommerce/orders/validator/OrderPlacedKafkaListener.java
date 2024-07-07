@@ -1,4 +1,4 @@
-package com.wesleyegberto.ecommerce.orders.processing;
+package com.wesleyegberto.ecommerce.orders.validator;
 
 import java.time.Duration;
 
@@ -18,9 +18,9 @@ public class OrderPlacedKafkaListener {
 	private static final Logger LOG = LoggerFactory.getLogger(OrderPlacedKafkaListener.class);
 
 	private final ObjectMapper objectMapper;
-	private final OrderProcessingService processingService;
+	private final OrderValidatorService processingService;
 
-	public OrderPlacedKafkaListener(ObjectMapper objectMapper, OrderProcessingService processingService) {
+	public OrderPlacedKafkaListener(ObjectMapper objectMapper, OrderValidatorService processingService) {
 		this.objectMapper = objectMapper;
 		this.processingService = processingService;
 	}
@@ -35,7 +35,7 @@ public class OrderPlacedKafkaListener {
 
 		try {
 			var event = objectMapper.readValue(message, OrderPlacedEvent.class);
-			processingService.processPlacedEvent(event);
+			processingService.processOrderPlacedEvent(event);
 			ack.acknowledge();
 		} catch (JsonProcessingException e) {
 			LOG.error("Error at deserialization: {}", e.getMessage());

@@ -11,7 +11,6 @@ import com.github.wesleyegberto.entity.PetNotFoundException;
 import com.github.wesleyegberto.repository.PetsRepository;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,11 +19,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 // a real webserver is started
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ExtendWith(SpringExtension.class)
 public class PetsControllerSpringBootTest {
 	@MockBean
 	private PetsRepository petsRepository;
@@ -76,5 +73,16 @@ public class PetsControllerSpringBootTest {
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getHeaders().get("X-PETS-VERSION")).containsOnly("v1");
+	}
+
+	@Test
+	public void should_delete_pet() {
+		restTemplate.delete("/pets/42");
+
+		ArgumentCaptor<Integer> argCaptor = ArgumentCaptor.forClass(Integer.class);
+		verify(petsRepository).deleteById(argCaptor.capture());
+		Integer actualArg = argCaptor.getValue();
+
+		assertThat(actualArg).isEqualTo(42);
 	}
 }

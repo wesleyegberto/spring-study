@@ -12,4 +12,12 @@ public record UserUpdateRequest(
 		@NotNull LocalDate birthDate,
 		@NotBlank @Email String email,
 		@Valid @NotNull Address address) {
+
+	public boolean hasEmail() {
+		return email != null && !email.isBlank();
+	}
+
+	public boolean hasAddress() {
+		return address != null;
+	}
 }

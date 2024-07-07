@@ -75,7 +75,6 @@ public class PetsControllerMockMvcWithContextTest {
 	public void should_create_new_pet() throws Exception {
 		MockHttpServletResponse response = mvc.perform(
 					post("/pets")
-						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(
 							json.write(new Pet("Marley", "Wesley")).getJson()

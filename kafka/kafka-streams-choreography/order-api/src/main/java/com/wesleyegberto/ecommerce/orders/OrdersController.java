@@ -2,7 +2,7 @@ package com.wesleyegberto.ecommerce.orders;
 
 import com.wesleyegberto.ecommerce.orders.placer.OrderPlaceRequest;
 import com.wesleyegberto.ecommerce.orders.placer.OrderPlacerService;
-import com.wesleyegberto.ecommerce.users.ClientNotFoundException;
+import com.wesleyegberto.ecommerce.users.CustomerNotFoundException;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class OrdersController {
 		try {
 			var placedOrder = processingService.placeOrder(order);
 			return ResponseEntity.ok(placedOrder);
-		} catch (ClientNotFoundException ex) {
+		} catch (CustomerNotFoundException ex) {
 			return ResponseEntity.badRequest().body(
 				Map.of("error", ex.getMessage())
 			);

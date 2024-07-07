@@ -6,18 +6,18 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
 @Embeddable
-public class Client {
+public class Customer {
 	@Min(1)
-	@Column(name = "client_id")
+	@Column(name = "customer_id")
 	private long id;
 	@NotEmpty
-	@Column(name = "client_tax_id")
+	@Column(name = "customer_tax_id")
 	private String taxId;
 	@NotEmpty
-	@Column(name = "client_name")
+	@Column(name = "customer_name")
 	private String name;
 	@NotEmpty
-	@Column(name = "client_email")
+	@Column(name = "customer_email")
 	private String email;
 
 	public long getId() {

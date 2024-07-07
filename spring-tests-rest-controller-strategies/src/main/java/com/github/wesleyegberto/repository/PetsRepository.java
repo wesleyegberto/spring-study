@@ -34,5 +34,9 @@ public class PetsRepository {
 	public List<Pet> findAll() {
 		return Collections.unmodifiableList(this.petsDb);
 	}
+
+	public void deleteById(int id) {
+		this.petsDb.removeIf(pet -> pet.getId() == id);
+	}
 }
 

@@ -83,4 +83,14 @@ public class UsersController {
 
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("{id}/historic")
+	public ResponseEntity<UserHistoricInformation> getUserHistory(@PathVariable("id") Long id) {
+		var optional = this.users.findById(id);
+		if (optional.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		var user = optional.get();
+		return ResponseEntity.ok(UserHistoricInformation.of(user));
+	}
 }
