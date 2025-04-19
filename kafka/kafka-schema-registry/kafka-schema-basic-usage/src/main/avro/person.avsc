@@ -1,0 +1,52 @@
+{
+	"type": "record",
+	"name": "PersonMessage",
+	"namespace": "com.github.wesleyegberto.kafkaavro.models",
+	"fields": [
+		{
+			"name": "id",
+			"type": "long"
+		},
+		{
+			"name": "name",
+			"type": "string",
+			"doc": "Full name"
+		},
+		{
+			"name": "birthDate",
+			"type": "string",
+			"default": "",
+			"doc": "Birth date"
+		},
+		{
+			"name": "address",
+			"type": {
+				"name": "AddressMessage",
+				"type": "record",
+				"fields": [
+					{
+						"name": "street",
+						"type": "string"
+					},
+					{
+						"name": "postalCode",
+						"type": "string"
+					},
+					{
+						"name": "active",
+						"type": "boolean",
+						"default": true
+					}
+				]
+			}
+		},
+		{
+			"name": "emails",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		}
+	]
+}
