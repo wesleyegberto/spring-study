@@ -1,5 +1,16 @@
 # Spring Study
 
+## POCs
+
+### GraphQL
+
+- [spring-graphql-basics](./spring-graphql-basics/): simple example how to use Spring Boot with GraphQL
+
+GraphQL:
+
+- [Baeldung - Spring GraphQL](https://www.baeldung.com/spring-graphql)
+- [Netflix - DGS Framework](https://netflix.github.io/dgs/)
+
 ## Posts
 
 - [Embracing Virtual Threads](https://spring.io/blog/2022/10/11/embracing-virtual-threads)

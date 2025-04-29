@@ -1,0 +1,28 @@
+type Query {
+	recentsMovies(page: Int, pageSize: Int): [Movie]
+	searchMovies(title: String, category: String, page: Int, pageSize: Int): [Movie]
+}
+
+type Mutation {
+	addMovieVerbose(title: String!, description: String!, category: String!, starring: [String]!): Movie!
+	addMovie(movie: MovieRequest!): Movie!
+}
+
+type Movie {
+	id: ID!
+	title: String!
+	description: String!
+	category: String!
+	starring: [Person]!
+}
+
+type Person {
+	name: String!
+}
+
+input MovieRequest {
+	title: String!
+	description: String!
+	category: String!
+	starring: [String]!
+}
