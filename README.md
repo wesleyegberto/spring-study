@@ -6,10 +6,12 @@
 
 - [spring-graphql-basics](./spring-graphql-basics/): simple example how to use Spring Boot with GraphQL
 
-GraphQL:
+Links:
 
-- [Baeldung - Spring GraphQL](https://www.baeldung.com/spring-graphql)
+- [GraphQL](https://graphql.org/)
+- [Spring GraphQL Docs](https://docs.spring.io/spring-graphql/reference/index.html)
 - [Netflix - DGS Framework](https://netflix.github.io/dgs/)
+- [Baeldung - Spring GraphQL](https://www.baeldung.com/spring-graphql)
 
 ## Posts
 
